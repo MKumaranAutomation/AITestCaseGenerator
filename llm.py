@@ -18,9 +18,10 @@ def generate_testcase(requirement: str) -> TestCaseResponse:
 
     raw_response = llm.invoke(prompt)
 
-    clean_json = extract_json(raw_response)
+    # clean_json = extract_json(raw_response)
 
-    return TestCaseResponse.model_validate_json(clean_json)
+    # return TestCaseResponse.model_validate_json(clean_json)
+    return raw_response
 
 
 def extract_json(text: str) -> str:
@@ -31,6 +32,3 @@ def extract_json(text: str) -> str:
         raise ValueError("No JSON object found in LLM response")
 
     return text[start:end]
-
-
-generate_testcase("Create a test case for login page")
