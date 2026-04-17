@@ -2,10 +2,10 @@ from pydantic import BaseModel
 from typing import List
 
 class TestCase(BaseModel):
-    tcId:int
+    tcId: str
     tcDescription: str
-    tSteps: str
+    tSteps: List[str]
     tExpectedResults: str
     
 class TestCaseResponse(BaseModel):
-    test_case: List[TestCase]
+    test_cases: List[TestCase]

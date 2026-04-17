@@ -17,17 +17,42 @@ with st.sidebar:
 
 
 # requirement = "Create a 5 test cases for Web Login functionality.The test cases should cover the following scenarios: 1. Valid login with correct username and password.2. Invalid login with incorrect username. 3. Invalid login with incorrect password. 4. Empty username and password fields. 5. Account lockout after multiple failed login attempts. Publish the results in tabular format with the following columns: Test Case ID, Test Case Description, Expected Results. The test case IDs should be in the format TC001, TC002, etc."
-requirement = st.chat_input("Enter the User Story / requirement")
-with st.chat_message("ai", avatar=None):
-    st.write("Hello 👋 Welcome to the TestCases Generator Tool!, Happy to help you generate test cases!")
+# Initialize chat history
+if "messages" not in st.session_state:
+    st.session_state.messages = [
+        {"role": "ai", "content": "Hello 👋 I'm your Senior QA Engineer assistant. I can help you generate comprehensive test cases or answer any questions about the QA process. How can I help you today?"}
+    ]
+
+# Display chat history
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        if isinstance(message["content"], pd.DataFrame):
+            st.dataframe(message["content"], use_container_width=True)
+        else:
+            st.markdown(message["content"])
+
+# Chat input
+requirement = st.chat_input("Enter your requirement or ask a question...")
+
 if requirement:
-    with st.chat_message("user", avatar=None):
-        st.write(f"{requirement}")
-    if requirement.strip():
-        with st.spinner("Generating..."):
-            result = generate_testcase(requirement)
-            with st.chat_message("ai", avatar=None):
-                st.write(result)
+    # Add user message to history
+    st.session_state.messages.append({"role": "user", "content": requirement})
+    with st.chat_message("user"):
+        st.markdown(requirement)
+
+    with st.chat_message("ai"):
+        with st.spinner("Thinking..."):
+            # Pass full history to generate_testcase
+            result = generate_testcase(requirement, history=st.session_state.messages[:-1])
             
-    else:
-        st.warning("Please enter the requirements!!!")
+            if isinstance(result, pd.DataFrame):
+                if not result.empty:
+                    st.success("Test cases generated successfully!")
+                    st.dataframe(result, use_container_width=True)
+                    st.session_state.messages.append({"role": "ai", "content": result})
+                else:
+                    st.error("I couldn't generate test cases for that. Could you provide more details?")
+            else:
+                # Regular text response
+                st.markdown(result)
+                st.session_state.messages.append({"role": "ai", "content": result})
