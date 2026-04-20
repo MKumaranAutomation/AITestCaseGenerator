@@ -39,6 +39,19 @@ graph TD
 
 ---
 
+## 💻 Tech Stack
+
+This project leverages a modern AI stack to deliver a seamless local experience:
+
+*   **UI Framework:** [Streamlit](https://streamlit.io/) (Python-based interactive web interface)
+*   **LLM Orchestration:** [LangChain](https://www.langchain.com/) (`langchain-ollama`)
+*   **AI Model:** **Mistral** (Running locally via [Ollama](https://ollama.ai/))
+*   **Data Processing:** [Pandas](https://pandas.pydata.org/) (Structured data transformation and table rendering)
+*   **Schema Validation:** [Pydantic](https://docs.pydantic.dev/) (Strict data structure enforcement)
+*   **Core Language:** **Python 3.9+**
+
+---
+
 ## 📊 Data Relationship Diagram
 
 This diagram shows how information is organized inside the system:
