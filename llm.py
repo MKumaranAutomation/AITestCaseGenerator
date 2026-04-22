@@ -79,7 +79,7 @@ def generate_testcase(requirement: str, history: list = None):
                         )
                     
                     # Reorder columns
-                    desired_order = ['tcId', 'tcDescription', 'tSteps', 'tExpectedResults']
+                    desired_order = ['tcId', 'tcDescription', 'priority', 'preConditions', 'tSteps', 'tExpectedResults']
                     current_cols = [c for c in desired_order if c in df.columns]
                     df = df[current_cols]
 

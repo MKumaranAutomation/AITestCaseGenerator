@@ -14,6 +14,8 @@ Your role is to assist the user in two ways:
     {
       "tcId": "TC001",
       "tcDescription": "Brief description",
+      "priority": "High",
+      "preConditions": "User is logged in",
       "tSteps": ["Step 1", "Step 2"],
       "tExpectedResults": "Result"
     }
